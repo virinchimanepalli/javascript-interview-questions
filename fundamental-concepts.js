@@ -12,11 +12,11 @@ const arr = [
 
 const result = arr.reduce((curr, acc) => curr + acc, 0)
 
-console.log(result, 'result');
+console.log(result, '-result-');
 
 // ! using Reduce we can Execute Promises in sequence.[Fix Bug]
 
-const asyncTask = function (time, reject = false) { // if(reject) {
+const asyncTask = function (time, reject = false) {
     return new Promise((resolve, reject) => {
         setTimeout(() => { resolve(time) }, time * 1000)
     })
@@ -86,7 +86,7 @@ handlePromiseAny(promiseArr).then((response) => {
 
 // ! Promise race pollyfill
 // ! Promise.race is method retruns a promise that resolves or reject the earlist item in the list of promises.
-
+// ! WHy .then(resolve, reject) ? Write down here in next revision : Tricky interview question.
 const handlePromiseRace = (promises) => {
     return new Promise((resolve, reject) => {
         promises.forEach((promiseItem) => {
@@ -99,6 +99,23 @@ handlePromiseRace(promiseArr).then((res) => { console.log(res, 'Promise.race') }
 // ! Retry Promise N number of times.
 
 // retry(asyncFunc, retries = 3, delay = 50, finalError = "Failed finally")
+// const retry = async (asyncFunc, retries = 3, delay = 50, finalError = "Failed finally") => {
+//     try {
+//         console.log("Logs....")
+//         await asyncFunc()
+//     } catch (err) {
+//         if (retries <= 0) {
+//             return Promise.reject(finalError)
+//         }
+//         // ! wait for a while
+//         return retry(asyncFunc, (retries - 1), delay, finalError)
+//     }
+// }
+
+// ! Getting error ApiFunc needs to be checked.
+// retry(apiFunction, 3, 50, 'Failed')
+// Finished till71
+
 
 const wait = (ms) => {
     return new Promise((resolve, reject) => {
@@ -124,19 +141,3 @@ const apiFunction = (number = 2) => {
 // Execute Promise according to the priority 
 
 
-// const retry = async (asyncFunc, retries = 3, delay = 50, finalError = "Failed finally") => {
-//     try {
-//         console.log("Logs....")
-//         await asyncFunc()
-//     } catch (err) {
-//         if (retries <= 0) {
-//             return Promise.reject(finalError)
-//         }
-//         // ! wait for a while
-//         return retry(asyncFunc, (retries - 1), delay, finalError)
-//     }
-// }
-
-// ! Getting error ApiFunc needs to be checked.
-// retry(apiFunction, 3, 50, 'Failed')
-// Finished till71
